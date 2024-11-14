@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TaskApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="angular.js"></script>
+    <script src="app.js"></script>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #a18cd1, #e486ca);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .task-container {
+            width: 90%;
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .task-header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .task-list {
+            margin-top: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .task-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .task-item .task-info {
+            flex-grow: 1;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            cursor: pointer;
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: #4ca2cd;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: #f0ad4e;
+            color: #fff;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            color: #fff;
+        }
+
+        .task-details {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .task-details.visible {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body ng-controller="TaskController">
+    <div class="task-container">
+        <!-- Header -->
+        <div class="task-header">
+            <h1>Task Management</h1>
+            <button class="btn btn-primary" style="  margin-left: 370px;" ng-click="addTask()">Add New Task</button>
+            <button class="btn btn-secondary" ng-click="logout()">Logout</button>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list">
+            <div class="task-item" ng-repeat="task in tasks">
+                <div class="task-info" ng-click="showTaskDetails(task)">
+                    <h3>{{task.title}}</h3>
+                    <p>{{task.description}}</p>
+                    <small>Due: {{task.dueDate | date}}</small>
+                </div>
+                <div class="task-actions">
+                    <button class="btn btn-primary" ng-click="showTaskDetails(task)">View</button>
+                    <button class="btn btn-secondary" ng-click="editTask(task)">Edit</button>
+                    <button class="btn btn-danger" ng-click="deleteTask(task._id)">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Details / Edit Form -->
+        <div class="task-details" ng-class="{'visible': taskDetails}">
+            <h2>{{ taskDetails._id ? 'Edit Task' : 'Add New Task' }}</h2>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" ng-model="taskDetails.title" placeholder="Enter task title">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea ng-model="taskDetails.description" placeholder="Enter task description"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Due Date</label>
+                <input type="date" ng-model="taskDetails.dueDate">
+            </div>
+            <div class="form-group">
+                <label>Priority</label>
+                <select ng-model="taskDetails.priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select ng-model="taskDetails.status">
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" ng-click="saveTask()">Save Task</button>
+            <button class="btn btn-secondary" ng-click="taskDetails = null">Cancel</button>
+        </div>
+    </div>
+</body>
+</html>

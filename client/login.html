@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TaskApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="angular.js"></script>
+    <script src="app.js"></script>
+    <style>
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #a18cd1, #e486ca);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 320px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 1.5em;
+            color: #333;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 .fa-user {
+            margin-right: 10px;
+            color: #4ca2cd;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 0.6em 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #4ca2cd;
+            box-shadow: 0 0 8px rgba(76, 162, 205, 0.2);
+            outline: none;
+        }
+        button {
+            background: linear-gradient(90deg, #67b26f, #4ca2cd);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #4ca2cd, #67b26f);
+            box-shadow: 0 4px 12px rgba(76, 162, 205, 0.5);
+        }
+        .forgot-password {
+            margin-top: 1em;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .forgot-password a {
+            color: #4ca2cd;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body ng-controller="AuthController">
+    <div class="login-container">
+        <h1><i class="fas fa-user"></i> Login</h1>
+        <form ng-submit="login()">
+            <input type="text" ng-model="loginEmail" placeholder="Enter Email" required><br>
+            <input type="password" ng-model="loginPassword" placeholder="Enter Password" required><br>
+            <button type="submit">Login</button>
+        </form>
+        <p class="forgot-password">Haven't registered yet? <a href="register.html">Click here</a></p>
+    </div>
+</body>
+
+</html>
